@@ -4,6 +4,7 @@ package com.example.viper2.blog_config;
 https://danielme.com/tip-android-12-animar-mostrarocultar-layout-con-desplazamientos/ // mostrar y ocultar layouts
 https://neurobin.org/docs/android/android-time-picker-example/
 http://www.technotalkative.com/android-get-current-date-and-time/
+https://developer.android.com/reference/java/text/SimpleDateFormat.html
 
 https://danielme.com/2013/04/25/diseno-android-spinner
  */
@@ -17,13 +18,18 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class BthActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,9 +49,11 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
     // String for MAC address
     private static String address = null;
 
-    Button btnOptionfr, btnConfigfr;
-    Button btn1,btn2,btn3,btn4;
+    Button btnOptionfr, btnConfigfr,btn1,btn2,btn3,btn4,btnSend;
     TextView txt1,txt2,txt3;
+    Spinner sPack,sSpeed;
+
+    Calendar c = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +128,9 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
         btn4 = (Button) findViewById(R.id.btn4);
+        btnSend = (Button) findViewById(R.id.btnSend);
+        sPack = (Spinner) findViewById(R.id.sPack);
+        sSpeed = (Spinner) findViewById(R.id.sSpeed);
 
         txt1 = (TextView) findViewById(R.id.txt1);
         txt2 = (TextView) findViewById(R.id.txt2);
@@ -148,6 +159,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                     e.printStackTrace();
                 }
                 */
+
+                //System.out.println("Current time =&gt; "+c.getTime());
+                SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd-EE HH:mm:ss");
+                String formattedDate = df.format(c.getTime());
+                // Now formattedDate have current date/time
+                Toast.makeText(getBaseContext(), formattedDate, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,6 +201,45 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
             }
         });
+
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.Pack, R.layout.spinner_item);
+        sPack.setAdapter(adapter1);
+
+        sPack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                Toast.makeText(getBaseContext(),"Data N = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Speed, R.layout.spinner_item);
+        sSpeed.setAdapter(adapter2);
+
+        sSpeed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                Toast.makeText(getBaseContext(),"Hz = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+         //mConnectedThread.write("+");    // Send "Config" via Bluetoot
+        Toast.makeText(getBaseContext(),"Envio trama confg", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
     //

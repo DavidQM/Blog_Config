@@ -171,7 +171,7 @@ tools:context="com.example.viper2.blog_config.BthActivity">
                         android:textSize="20sp"
                         android:id="@+id/txt5"/>
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/sSpeed"
                         style="@style/mySpinnerItemStyle"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
