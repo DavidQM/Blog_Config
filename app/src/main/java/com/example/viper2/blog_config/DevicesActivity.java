@@ -1,6 +1,10 @@
 
 package com.example.viper2.blog_config;
 
+/*
+https://stackoverflow.com/questions/23249163/transfer-socket-from-one-activity-to-another //pasar info desde otra activity
+ */
+
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothSocket;

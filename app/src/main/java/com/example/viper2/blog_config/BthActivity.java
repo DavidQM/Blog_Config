@@ -1,5 +1,12 @@
 
 package com.example.viper2.blog_config;
+/*
+https://danielme.com/tip-android-12-animar-mostrarocultar-layout-con-desplazamientos/ // mostrar y ocultar layouts
+https://neurobin.org/docs/android/android-time-picker-example/
+http://www.technotalkative.com/android-get-current-date-and-time/
+
+https://danielme.com/2013/04/25/diseno-android-spinner
+ */
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -19,6 +27,8 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 public class BthActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private LinearLayout layoutAnimado1,layoutAnimado2;
 
     private static final String TAG = "Read";
     // EXTRA string to send on to ConfigActivity
@@ -41,6 +51,10 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bth);
+        layoutAnimado1 = (LinearLayout) findViewById(R.id.OptionLayout);
+        layoutAnimado2 = (LinearLayout) findViewById(R.id.ConfigLayout);
+        layoutAnimado1.setVisibility(View.VISIBLE);
+        layoutAnimado2.setVisibility(View.GONE);
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -76,8 +90,13 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                         }
                         if (recDataString.charAt(0) == '-')                             //if it starts with # we know it is what we are looking for
                         {
-                            String Temp = recDataString.substring(1, 3);
-                            String Presion = recDataString.substring(4, 9);
+                            int i = 1;
+                            while(recDataString.charAt(i) != '/')
+                            {
+                                i++;
+                            }
+                            String Temp = recDataString.substring(1, i-1);
+                            String Presion = recDataString.substring(i, recDataString.length());
 
                             txt1.setText("Check Sensor Status");
                             txt2.setText(" Temp (C) = " + Temp);
@@ -180,6 +199,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 transition.replace(R.id.Contenedor, fragmento1);
                 transition.commit();
                 */
+                if (layoutAnimado1.getVisibility() == View.GONE)
+                {
+                    //animar(true);
+                    layoutAnimado1.setVisibility(View.VISIBLE);
+                    layoutAnimado2.setVisibility(View.GONE);
+                }
                 break;
 
             case R.id.btnConfigfr:
@@ -189,6 +214,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 transition1.replace(R.id.Contenedor, fragmento2);
                 transition1.commit();
                 */
+                if (layoutAnimado2.getVisibility() == View.GONE)
+                {
+                    //animar(true);
+                    layoutAnimado1.setVisibility(View.GONE);
+                    layoutAnimado2.setVisibility(View.VISIBLE);
+                }
                 break;
         }
 
