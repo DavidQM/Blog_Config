@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.viper2.blog_config.DevicesActivity">
+
+    <TextView android:id="@+id/title_paired_devices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Seleccione un dispositivo btSerial"
+        android:textSize="15dp"
+        />
+    <ListView android:id="@+id/paired_devices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stackFromBottom="false"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/connecting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Si no hay dispositivos en la lista, por favor enlaza tu dispositivo en la configuración de Android"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_margin="20dp"
+        android:textSize="15dp" />
+
+</LinearLayout>
