@@ -9,6 +9,8 @@ https://developer.android.com/reference/java/text/SimpleDateFormat.html
 https://danielme.com/2013/04/25/diseno-android-spinner
  */
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
@@ -24,6 +26,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +34,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
+import android.view.View.OnClickListener;
 
 public class BthActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,9 +53,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
     // String for MAC address
     private static String address = null;
 
-    Button btnOptionfr, btnConfigfr,btn1,btn2,btn3,btn4,btnSend;
+    Button btnOptionfr, btnConfigfr,btn1,btn2,btn3,btn4,btnSend,btnChangeTime;
     TextView txt1,txt2,txt3;
     Spinner sPack,sSpeed;
+
+    TimePicker timePicker1;
+    static final int TIME_DIALOG_ID = 999;
 
     Calendar c = Calendar.getInstance();
 
@@ -241,7 +248,32 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         });
 
 
+        btnChangeTime = (Button) findViewById(R.id.btnChangeTime);
+
+        btnChangeTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(BthActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        btnChangeTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
+
+
     }
+    //
     //
 
     public void onClick(View v) {
