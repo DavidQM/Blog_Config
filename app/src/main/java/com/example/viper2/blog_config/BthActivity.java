@@ -60,9 +60,6 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
     String sendConfig=null;
     String YY,MM,DD,W,HA,MA,HI=null,MI=null,FF=null,N=null,MS=null;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,7 +199,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 txt3.setText("");
                 btAdapter.disable();
                 //btSocket.close();
-                Intent i = new Intent(BthActivity.this,DevicesActivity.class);
+                Intent i = new Intent(BthActivity.this,MainActivity.class);
                 startActivity(i);
                 finish();
 
@@ -540,7 +537,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 }
                 */
                 btAdapter.disable();
-                Intent i = new Intent(BthActivity.this, DevicesActivity.class);
+                Intent i = new Intent(BthActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
 
