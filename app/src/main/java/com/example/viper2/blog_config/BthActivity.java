@@ -16,6 +16,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,12 +56,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
     Button btnOptionfr, btnConfigfr,btn1,btn2,btn3,btn4,btnSend,btnChangeTime;
     TextView txt1,txt2,txt3;
-    Spinner sPack,sSpeed;
+    Spinner sPack,sSpeed,sBtime;
+    String sendConfig=null;
+    String YY,MM,DD,W,HA,MA,HI=null,MI=null,FF=null,N=null,MS=null;
 
-    TimePicker timePicker1;
-    static final int TIME_DIALOG_ID = 999;
 
-    Calendar c = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +69,13 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_bth);
         layoutAnimado1 = (LinearLayout) findViewById(R.id.OptionLayout);
         layoutAnimado2 = (LinearLayout) findViewById(R.id.ConfigLayout);
+        //original
         layoutAnimado1.setVisibility(View.VISIBLE);
         layoutAnimado2.setVisibility(View.GONE);
-
+        /*
+        layoutAnimado1.setVisibility(View.GONE);
+        layoutAnimado2.setVisibility(View.VISIBLE);
+          */
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {                                     //if message is what we want
@@ -85,21 +90,21 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                         if (recDataString.charAt(0) == '+')                             //if it starts with # we know it is what we are looking for
                         {
                             //YY/MY/DD/W/HA/MA/HI/MI/FF/N/MS
-                            String DD = recDataString.substring(1, 3);
-                            String MY = recDataString.substring(4, 6);
-                            String YY = recDataString.substring(7, 11);
-                            String HA = recDataString.substring(12, 14);
-                            String MA = recDataString.substring(15, 17);
-                            String HI = recDataString.substring(18, 20);
-                            String MI = recDataString.substring(21, 23);
-                            String N = recDataString.substring(24, 28);
-                            String FF = recDataString.substring(29, 31);
-                            String MS = recDataString.substring(32, 34);
+                            String dd = recDataString.substring(1, 3);
+                            String mm= recDataString.substring(4, 6);
+                            String yy= recDataString.substring(7, 11);
+                            String ha = recDataString.substring(12, 14);
+                            String ma = recDataString.substring(15, 17);
+                            String hi = recDataString.substring(18, 20);
+                            String mi = recDataString.substring(21, 23);
+                            String n = recDataString.substring(24, 28);
+                            String ff = recDataString.substring(29, 31);
+                            String ms = recDataString.substring(32, 34);
                             //hacer calculo para N
 
-                            txt1.setText(" Date = " + DD + "/"+ MY + "/"+ YY + " Time = "+ HA + ":" + MA);
-                            txt2.setText(" Start Time = " + HI + ":" + MI );
-                            txt3.setText(" N(Pack) = " + N + " F(Hz) = " + FF+ " Break Time =" + MS);
+                            txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
+                            txt2.setText(" Start Time = " + hi + ":" + mi );
+                            txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
 
                             //txt3.setText("D_Rx = " + dataInPrint);
                         }
@@ -131,13 +136,14 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
         btnOptionfr = (Button)findViewById(R.id.btnOptionfr);
         btnConfigfr = (Button)findViewById(R.id.btnConfigfr);
-        btn1 = (Button) findViewById(R.id.btn1);
+       // btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
         btn4 = (Button) findViewById(R.id.btn4);
         btnSend = (Button) findViewById(R.id.btnSend);
         sPack = (Spinner) findViewById(R.id.sPack);
         sSpeed = (Spinner) findViewById(R.id.sSpeed);
+        sBtime = (Spinner) findViewById(R.id.sBtime);
 
         txt1 = (TextView) findViewById(R.id.txt1);
         txt2 = (TextView) findViewById(R.id.txt2);
@@ -145,7 +151,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
         btnOptionfr.setOnClickListener(this);
         btnConfigfr.setOnClickListener(this);
-
+        /*
         btn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //mConnectedThread.write("1");    // Send "0" via Bluetooth
@@ -153,28 +159,22 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 txt1.setText("");
                 txt2.setText("");
                 txt3.setText("");
-                /*
-                Intent i = new Intent(OptionActivity.this, ConfigActivity.class);
-                i.putExtra(EXTRA_DEVICE_ADDRESS,address);
-                // i.putExtra(EXTRA_DEVICE_SOCKET,btSocket);
-                startActivity(i);
-                finish();
-                //mConnectedThread.stop();
-                try {
-                    btSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                */
 
-                //System.out.println("Current time =&gt; "+c.getTime());
-                SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd-EE HH:mm:ss");
-                String formattedDate = df.format(c.getTime());
-                // Now formattedDate have current date/time
-                Toast.makeText(getBaseContext(), formattedDate, Toast.LENGTH_SHORT).show();
+                //Intent i = new Intent(OptionActivity.this, ConfigActivity.class);
+                //i.putExtra(EXTRA_DEVICE_ADDRESS,address);
+                // i.putExtra(EXTRA_DEVICE_SOCKET,btSocket);
+                //startActivity(i);
+                //finish();
+                //mConnectedThread.stop();
+                //try {
+                //    btSocket.close();
+                //} catch (IOException e) {
+                //    e.printStackTrace();
+                //}
+
             }
         });
-
+        */
         btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mConnectedThread.write("+");    // Send "0" via Bluetooth
@@ -215,7 +215,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         sPack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                Toast.makeText(getBaseContext(),"Data N = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(),"Data N = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
+                N=Integer.toString(i+1);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -229,7 +230,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         sSpeed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                Toast.makeText(getBaseContext(),"Hz = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(),"Hz = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
+                FF="0"+Integer.toString(i+1);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -237,12 +239,73 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.Btime, R.layout.spinner_item);
+        sBtime.setAdapter(adapter3);
+
+        sBtime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+
+                Resources res = getResources();
+                String[] Btimestr = res.getStringArray(R.array.Btime);
+                MS=Btimestr[i];
+                //Toast.makeText(getBaseContext(),"Btime = "+ Btimestr[i], Toast.LENGTH_SHORT).show();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                Calendar c = Calendar.getInstance();
+                //System.out.println("Current time =&gt; "+c.getTime());
+                SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd-EE HH:mm");
+                String formattedDate = df.format(c.getTime());
+                // Now formattedDate have current date/time
+                //Toast.makeText(getBaseContext(), formattedDate, Toast.LENGTH_SHORT).show();
+
+                //YY = Integer.toString(Integer.parseInt(formattedDate.substring(0, 2))+2000);//no paso nada
+                YY = formattedDate.substring(0, 2);
+                MM = formattedDate.substring(3, 5);
+                DD = formattedDate.substring(6, 8);
+                W=formattedDate.substring(9, 12);
+                //numeracion del reloj ds1302
+                if(W.equals("dom")|| W.equals("sun")){W=Integer.toString(1);}
+                if(W.equals("lun")|| W.equals("mon")){W=Integer.toString(2);}
+                if(W.equals("mar")|| W.equals("tue")){W=Integer.toString(3);}
+                if(W.equals("mié")|| W.equals("wed")){W=Integer.toString(4);}
+                if(W.equals("jue")|| W.equals("thu")){W=Integer.toString(5);}
+                if(W.equals("vie")|| W.equals("fri")){W=Integer.toString(6);}
+                if(W.equals("sáb")|| W.equals("sat")){W=Integer.toString(7);}
+
+
+                HA = formattedDate.substring(14, 16);
+                MA = formattedDate.substring(17, 19);
+
+                if(HI==null||N==null||FF==null||MS==null){
+                    Toast.makeText(getBaseContext(),"falta config", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String k="/";
+                 sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+"*";
+                    //revisar año en el dato de retorno (esta malo en el arduino IDE)
+                Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+                    mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
+                }
+                /*
+                HI = formattedDate.substring(18, 20);
+                MI = formattedDate.substring(21, 23);
+                FF = formattedDate.substring(24, 28);
+                N = formattedDate.substring(29, 31);
+                MS = formattedDate.substring(32, 34);
+                */
+                //YY,MM,DD,W,HA,MA,HI,MI,FF,N,MS
          //mConnectedThread.write("+");    // Send "Config" via Bluetoot
-        Toast.makeText(getBaseContext(),"Envio trama confg", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"Envio trama confg", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -263,15 +326,22 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         btnChangeTime.setText( selectedHour + ":" + selectedMinute);
+                        //para la hora
+                        if(selectedHour<10){
+                            HI="0"+Integer.toString(selectedHour);
+                        }
+                        else { HI=Integer.toString(selectedHour);}
+                        ///para el minuto
+                        if(selectedMinute<10){
+                            MI="0"+Integer.toString(selectedMinute);
+                        }
+                        else { MI=Integer.toString(selectedMinute);}
                     }
                 }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("Select start hour of burst");
                 mTimePicker.show();
             }
         });
-
-
-
     }
     //
     //
