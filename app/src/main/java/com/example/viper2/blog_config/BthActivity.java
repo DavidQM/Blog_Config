@@ -104,7 +104,6 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
                             txt2.setText(" Start Time = " + hi + ":" + mi );
                             txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
-
                             //txt3.setText("D_Rx = " + dataInPrint);
                         }
                         if (recDataString.charAt(0) == '-')                             //if it starts with # we know it is what we are looking for
@@ -203,7 +202,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 txt3.setText("");
                 btAdapter.disable();
                 //btSocket.close();
-                Intent i = new Intent(BthActivity.this,MainActivity.class);
+                Intent i = new Intent(BthActivity.this,InitActivity.class);
                 startActivity(i);
                 finish();
 
@@ -541,7 +540,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 }
                 */
                 btAdapter.disable();
-                Intent i = new Intent(BthActivity.this, MainActivity.class);
+                Intent i = new Intent(BthActivity.this, InitActivity.class);
                 startActivity(i);
                 finish();
 
