@@ -108,6 +108,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
                             //txt3.setText("D_Rx = " + dataInPrint);
                         }
+                        //falta colocar enviar el - desde el MCU
                         if (recDataString.charAt(0) == '-')                             //if it starts with # we know it is what we are looking for
                         {
                             int i = 1;
