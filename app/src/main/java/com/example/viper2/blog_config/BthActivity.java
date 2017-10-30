@@ -60,9 +60,6 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
     String sendConfig=null;
     String YY,MM,DD,W,HA,MA,HI=null,MI=null,FF=null,N=null,MS=null;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +99,14 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             String ms = recDataString.substring(32, 34);
                             //hacer calculo para N
 
+                            Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
+
                             txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
                             txt2.setText(" Start Time = " + hi + ":" + mi );
                             txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
 
                             //txt3.setText("D_Rx = " + dataInPrint);
                         }
-                        //falta colocar enviar el - desde el MCU
                         if (recDataString.charAt(0) == '-')                             //if it starts with # we know it is what we are looking for
                         {
                             int i = 1;
@@ -118,6 +116,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             }
                             String Temp = recDataString.substring(1, i-1);
                             String Presion = recDataString.substring(i, recDataString.length());
+
+                            Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
 
                             txt1.setText("Check Sensor Status");
                             txt2.setText(" Temp (C) = " + Temp);
@@ -203,7 +203,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 txt3.setText("");
                 btAdapter.disable();
                 //btSocket.close();
-                Intent i = new Intent(BthActivity.this,DevicesActivity.class);
+                Intent i = new Intent(BthActivity.this,MainActivity.class);
                 startActivity(i);
                 finish();
 
@@ -541,7 +541,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 }
                 */
                 btAdapter.disable();
-                Intent i = new Intent(BthActivity.this, DevicesActivity.class);
+                Intent i = new Intent(BthActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
 
