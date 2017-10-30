@@ -9,22 +9,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alignmentMode="alignMargins"
             android:columnCount="1"
-            android:rowCount="4">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:src="@drawable/user"
-                />
-
+            android:rowCount="3">
+                <ImageView
+                    android:src="@drawable/blolarteh"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
