@@ -99,8 +99,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             String ms = recDataString.substring(30, 32);
                             //hacer calculo para N
 
-                            Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
-
+                            //Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Sending program...", Toast.LENGTH_SHORT).show();
                             txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
                             txt2.setText(" Start Time = " + hi + ":" + mi );
                             txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
@@ -116,7 +116,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             String Temp = recDataString.substring(1, i-1);
                             String Presion = recDataString.substring(i+1, recDataString.length());
 
-                            Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
 
                             txt1.setText("Check Sensor Status");
                             txt2.setText(" Temp (C) = " + Temp);
@@ -293,7 +293,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                     String k="/";
                  sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+"*";
                     //revisar año en el dato de retorno (esta malo en el arduino IDE)
-                Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+                    mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                 }
                 /*

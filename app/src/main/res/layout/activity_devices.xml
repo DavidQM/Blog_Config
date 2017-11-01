@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Seleccione un dispositivo btSerial"
+        android:text="Select a btSerial device"
         android:textSize="15dp"
         />
     <ListView android:id="@+id/paired_devices"
@@ -30,7 +30,7 @@
         android:id="@+id/infoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Si no hay dispositivos en la lista, por favor enlaza tu dispositivo en la configuración de Android"
+        android:text="If there are no devices in the list, please link your device in the Android settings"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_margin="20dp"
         android:textSize="15dp" />

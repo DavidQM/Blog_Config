@@ -103,10 +103,10 @@ public class DevicesActivity extends AppCompatActivity {
         // Check device has Bluetooth and that it is turned on
         mBtAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
         if(mBtAdapter==null) {
-            Toast.makeText(getBaseContext(), "El dispositivo no soporta Bluetooth", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "The device does not support Bluetooth", Toast.LENGTH_SHORT).show();
         } else {
             if (mBtAdapter.isEnabled()) {
-                Log.d(TAG, "...Bluetooth Activado...");
+                Log.d(TAG, "...Bluetooth enabled...");
             } else {
                 //Prompt user to turn on Bluetooth
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -124,7 +124,7 @@ public class DevicesActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
 
-            textView1.setText("Conectando...");
+            textView1.setText("Connecting...");
             // Get the device MAC address, which is the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
             address = info.substring(info.length() - 17);
@@ -136,7 +136,7 @@ public class DevicesActivity extends AppCompatActivity {
                 btSocket = createBluetoothSocket(device);
                 SocketHandler.setSocket(btSocket);
             } catch (IOException e) {
-                Toast.makeText(getBaseContext(), "La creacción del Socket fallo", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "The creation of the socket failed", Toast.LENGTH_LONG).show();
             }
             // Establish the Bluetooth socket connection.
             /*

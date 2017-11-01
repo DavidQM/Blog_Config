@@ -18,6 +18,9 @@
         <item>2048</item>
     </string-array>
     <string-array name="Btime">
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
         <item>05</item>
         <item>10</item>
         <item>15</item>
