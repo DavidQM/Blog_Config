@@ -100,7 +100,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             //hacer calculo para N
 
                             //Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getBaseContext(), "Sending program...", Toast.LENGTH_SHORT).show();
+
                             txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
                             txt2.setText(" Start Time = " + hi + ":" + mi );
                             txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
@@ -296,6 +296,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                // Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
+                    Toast.makeText(getBaseContext(), "Sending program...", Toast.LENGTH_SHORT).show();
                 }
                 /*
                 HI = formattedDate.substring(18, 20);
