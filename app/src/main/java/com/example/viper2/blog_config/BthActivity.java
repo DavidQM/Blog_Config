@@ -89,14 +89,14 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             //YY/MY/DD/W/HA/MA/HI/MI/FF/N/MS
                             String dd = recDataString.substring(1, 3);
                             String mm= recDataString.substring(4, 6);
-                            String yy= recDataString.substring(7, 11);
-                            String ha = recDataString.substring(12, 14);
-                            String ma = recDataString.substring(15, 17);
-                            String hi = recDataString.substring(18, 20);
-                            String mi = recDataString.substring(21, 23);
-                            String n = recDataString.substring(24, 28);
-                            String ff = recDataString.substring(29, 31);
-                            String ms = recDataString.substring(32, 34);
+                            String yy= recDataString.substring(7, 9);
+                            String ha = recDataString.substring(10, 12);
+                            String ma = recDataString.substring(13, 15);
+                            String hi = recDataString.substring(16, 18);
+                            String mi = recDataString.substring(19, 21);
+                            String n = recDataString.substring(22, 26);
+                            String ff = recDataString.substring(27, 29);
+                            String ms = recDataString.substring(30, 32);
                             //hacer calculo para N
 
                             Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
@@ -114,7 +114,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                                 i++;
                             }
                             String Temp = recDataString.substring(1, i-1);
-                            String Presion = recDataString.substring(i, recDataString.length());
+                            String Presion = recDataString.substring(i+1, recDataString.length());
 
                             Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
 
