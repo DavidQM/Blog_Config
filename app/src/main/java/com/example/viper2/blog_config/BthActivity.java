@@ -293,7 +293,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 //Toast.makeText(getBaseContext(),"Hz = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
                 FF="0"+Integer.toString(i+1);
                 if(Modo==1){FF=null; FF="0"+Integer.toString(i+2);}
-                if(Modo==2){FF=null; FF="0"+Integer.toString(i+6);}
+                if(Modo==2){FF=null; if(i==4){FF=Integer.toString(i+6);}else{FF="0"+Integer.toString(i+6);}}
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -367,7 +367,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                     //sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+"*";
                    sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+SA+k+"*";//new
                     //revisar año en el dato de retorno (esta malo en el arduino IDE)
-                    Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
 
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
