@@ -5,9 +5,10 @@
     <string name="none_paired">No device has been paired</string>
     <string name="Init">Esta aplicacion permite realizar actualizar y configuracion tanto los datos de Fecha y Hora, como los parametros de funcionaminto del dipositivo BlueLog.</string>
     <string name="Con">Bluetooth connection enabled</string>
+    <string name="Confg0">Work Mode :</string>
     <string name="Confg1">Start Time :</string>
     <string name="Confg2">Sampling Speed :</string>
-    <string name="Confg3">N Sample Data :</string>
+    <string name="Confg3"># Sample Data :</string>
     <string name="Confg4">Break Sampling Time :</string>
 
     <!-- TODO: Remove or change this placeholder text -->

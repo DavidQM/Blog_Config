@@ -34,4 +34,70 @@
         <item>55</item>
         <item>60</item>
     </string-array>
+    <!-- lo nuevo -->
+    <string-array name="Mode">
+        <item>Tide</item>
+        <item>Waves</item>
+        <item>Lab</item>
+    </string-array>
+    <string-array name="Speed0">
+        <item>1 Hz</item>
+        <item>2 Hz</item>
+    </string-array>
+    <string-array name="Speed1">
+        <item>2 Hz</item>
+        <item>3 Hz</item>
+        <item>4 Hz</item>
+        <item>5 Hz</item>
+    </string-array>
+    <string-array name="Speed2">
+        <item>6 Hz</item>
+        <item>7 Hz</item>
+        <item>8 Hz</item>
+        <item>9 Hz</item>
+    </string-array>
+    <string-array name="Pack0">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+    </string-array>
+    <string-array name="Pack1">
+        <item>254</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+    </string-array>
+    <string-array name="Pack2">
+        <item>254</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+    </string-array>
+    <string-array name="Btime0">
+        <item>05</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="Btime1">
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="Btime2">
+        <item>05</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
 </resources>

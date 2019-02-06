@@ -32,6 +32,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
@@ -56,9 +57,12 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
     Button btnOptionfr, btnConfigfr,btn1,btn2,btn3,btn4,btnSend,btnChangeTime;
     TextView txt1,txt2,txt3;
-    Spinner sPack,sSpeed,sBtime;
+    Spinner sMode,sPack,sSpeed,sBtime;
     String sendConfig=null;
-    String YY,MM,DD,W,HA,MA,HI=null,MI=null,FF=null,N=null,MS=null;
+    String StrPack[]=null,StrFrec[]=null,StrTime[]=null;
+    int intPack,intSpeed,intBtime,Modo=0;
+    int Pack[]={256,512,1024,2048,10,20,30,40};
+    String YY,MM,DD,W,HA,MA,SA,HI=null,MI=null,FF=null,N=null,MS=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,16 +96,17 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                             String yy= recDataString.substring(7, 9);
                             String ha = recDataString.substring(10, 12);
                             String ma = recDataString.substring(13, 15);
-                            String hi = recDataString.substring(16, 18);
-                            String mi = recDataString.substring(19, 21);
-                            String n = recDataString.substring(22, 26);
-                            String ff = recDataString.substring(27, 29);
-                            String ms = recDataString.substring(30, 32);
+                            String sa = recDataString.substring(16, 18);
+                            String hi = recDataString.substring(19, 21);
+                            String mi = recDataString.substring(22, 24);
+                            String n = recDataString.substring(25, 29);
+                            String ff = recDataString.substring(30, 32);
+                            String ms = recDataString.substring(33, 35);
                             //hacer calculo para N
 
                             //Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
 
-                            txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma);
+                            txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma +":"+ sa);
                             txt2.setText(" Start Time = " + hi + ":" + mi );
                             txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
                             //txt3.setText("D_Rx = " + dataInPrint);
@@ -141,6 +146,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         btn3 = (Button) findViewById(R.id.btn3);
         btn4 = (Button) findViewById(R.id.btn4);
         btnSend = (Button) findViewById(R.id.btnSend);
+        sMode = (Spinner) findViewById(R.id.sMode);
         sPack = (Spinner) findViewById(R.id.sPack);
         sSpeed = (Spinner) findViewById(R.id.sSpeed);
         sBtime = (Spinner) findViewById(R.id.sBtime);
@@ -151,6 +157,10 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
         btnOptionfr.setOnClickListener(this);
         btnConfigfr.setOnClickListener(this);
+
+        intPack =R.array.Pack0;
+        intSpeed = R.array.Speed0;
+        intBtime = R.array.Btime0;
         /*
         btn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -177,7 +187,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         */
         btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mConnectedThread.write("+");    // Send "0" via Bluetooth
+                mConnectedThread.write("+");    // Send "+" via Bluetooth - configueracion actual
                 //Toast.makeText(getBaseContext(), "boton 2", Toast.LENGTH_SHORT).show();
                 txt1.setText("");
                 txt2.setText("");
@@ -186,7 +196,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
         });
         btn3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mConnectedThread.write("-");    // Send "0" via Bluetooth
+                mConnectedThread.write("-");    // Send "-" via Bluetooth estado de los sensores
                 //Toast.makeText(getBaseContext(), "boton 3", Toast.LENGTH_SHORT).show();
                 txt1.setText("");
                 txt2.setText("");
@@ -209,14 +219,44 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.Pack, R.layout.spinner_item);
-        sPack.setAdapter(adapter1);
+        ArrayAdapter<CharSequence> adapter0 = ArrayAdapter.createFromResource(this, R.array.Mode, R.layout.spinner_item);
+        sMode.setAdapter(adapter0);
 
-        sPack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                //Toast.makeText(getBaseContext(),"Data N = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
-                N=Integer.toString(i+1);
+                //Toast.makeText(getBaseContext(),"Mode = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                //init sw
+                intPack = 0;
+                intSpeed = 0;
+                intBtime = 0;
+                switch (i){
+
+                    case 0:
+                        //Toast.makeText(getBaseContext(),"Mode 2= "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Mode = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                        //StrPack =getResources().getStringArray(R.array.Pack0);
+                        intPack = R.array.Pack0;
+                        intSpeed = R.array.Speed0;
+                        intBtime = R.array.Btime0;
+                        Modo=0;
+                        break;
+                    case 1:
+                        Toast.makeText(getBaseContext(),"Mode = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                        intPack =R.array.Pack1;
+                        intSpeed = R.array.Speed1;
+                        intBtime = R.array.Btime1;
+                        Modo=1;
+                        break;
+                    case 2:
+                        Toast.makeText(getBaseContext(),"Mode = "+Integer.toString(i), Toast.LENGTH_SHORT).show();
+                        intPack =R.array.Pack2;
+                        intSpeed = R.array.Speed2;
+                        intBtime = R.array.Btime2;
+                        Modo=2;
+                     break;
+                }//fin sw
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -224,7 +264,27 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Speed, R.layout.spinner_item);
+        //ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.Pack, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, intPack, R.layout.spinner_item);//new
+        sPack.setAdapter(adapter1);
+
+        sPack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                //Toast.makeText(getBaseContext(),"Data N = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
+
+                N=Integer.toString(i+1);
+                if(Modo==0){N=null; N=Integer.toString(i+5);}
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Speed, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, intSpeed, R.layout.spinner_item);
         sSpeed.setAdapter(adapter2);
 
         sSpeed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -232,6 +292,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
                 //Toast.makeText(getBaseContext(),"Hz = "+Integer.toString(i+1), Toast.LENGTH_SHORT).show();
                 FF="0"+Integer.toString(i+1);
+                if(Modo==1){FF=null; FF="0"+Integer.toString(i+2);}
+                if(Modo==2){FF=null; FF="0"+Integer.toString(i+6);}
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -239,7 +301,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.Btime, R.layout.spinner_item);
+        //ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.Btime, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, intBtime, R.layout.spinner_item);
         sBtime.setAdapter(adapter3);
 
         sBtime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -247,7 +310,8 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
 
                 Resources res = getResources();
-                String[] Btimestr = res.getStringArray(R.array.Btime);
+                //String[] Btimestr = res.getStringArray(R.array.Btime);
+                String[] Btimestr = res.getStringArray(intBtime);
                 MS=Btimestr[i];
                 //Toast.makeText(getBaseContext(),"Btime = "+ Btimestr[i], Toast.LENGTH_SHORT).show();
 
@@ -263,7 +327,7 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
                 Calendar c = Calendar.getInstance();
                 //System.out.println("Current time =&gt; "+c.getTime());
-                SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd-EE HH:mm");
+                SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd-EE HH:mm:ss");
                 String formattedDate = df.format(c.getTime());
                 // Now formattedDate have current date/time
                 //Toast.makeText(getBaseContext(), formattedDate, Toast.LENGTH_SHORT).show();
@@ -285,18 +349,30 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
                 HA = formattedDate.substring(14, 16);
                 MA = formattedDate.substring(17, 19);
+                SA = formattedDate.substring(20, 22);
 
                 if(HI==null||N==null||FF==null||MS==null){
-                    Toast.makeText(getBaseContext(),"falta config", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"Incomplete configuration", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    //realizar calculos para sesgar programacion
+                    ///aqui quede febrero 4
+                  int TTseg =Pack[Integer.valueOf(N)-1]/Integer.valueOf(FF);
+                  int TMseg =(Integer.valueOf(MS)*60);
+                    System.out.println("TTseg = "+Integer.toString(TTseg));
+                    System.out.println("TMseg = "+Integer.toString(TMseg));
+                    if(TTseg >= TMseg){Toast.makeText(getBaseContext(),"Error !! \n" + "Measurement time ("+TTseg+" seg) greater than"+ "\n(" + TMseg + " seg) the measurement time interval", Toast.LENGTH_SHORT).show();}
+                    else {//init else
                     String k="/";
-                 sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+"*";
+                    //sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+"*";
+                   sendConfig=YY+k+MM+k+DD+k+W+k+HA+k+MA+k+HI+k+MI+k+FF+k+N+k+MS+k+SA+k+"*";//new
                     //revisar año en el dato de retorno (esta malo en el arduino IDE)
-               // Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),sendConfig, Toast.LENGTH_SHORT).show();
+
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                     mConnectedThread.write(sendConfig);    // Send "Config" via Bluetoot
                     Toast.makeText(getBaseContext(), "Sending program...", Toast.LENGTH_SHORT).show();
+                    }//fin else
                 }
                 /*
                 HI = formattedDate.substring(18, 20);
@@ -350,6 +426,13 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
     public void onClick(View v) {
 
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, intPack, R.layout.spinner_item);//new
+        sPack.setAdapter(adapter1);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, intSpeed, R.layout.spinner_item);//new
+        sSpeed.setAdapter(adapter2);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, intBtime, R.layout.spinner_item);//new
+        sBtime.setAdapter(adapter3);
+
         switch (v.getId()){
 
             case R.id.btnOptionfr:
@@ -373,6 +456,14 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
                 FragmentTransaction transition1 =  getSupportFragmentManager().beginTransaction();
                 transition1.replace(R.id.Contenedor, fragmento2);
                 transition1.commit();
+                */
+                /*
+                ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, intPack, R.layout.spinner_item);//new
+                sPack.setAdapter(adapter1);
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, intSpeed, R.layout.spinner_item);//new
+                sSpeed.setAdapter(adapter2);
+                ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, intBtime, R.layout.spinner_item);//new
+                sBtime.setAdapter(adapter3);
                 */
                 if (layoutAnimado2.getVisibility() == View.GONE)
                 {
