@@ -106,9 +106,9 @@ public class BthActivity extends AppCompatActivity implements View.OnClickListen
 
                             //Toast.makeText(getBaseContext(), recDataString, Toast.LENGTH_SHORT).show();
 
-                            txt1.setText(" Date = " + dd + "/"+ mm + "/"+ yy + " Time = "+ ha + ":" + ma +":"+ sa);
-                            txt2.setText(" Start Time = " + hi + ":" + mi );
-                            txt3.setText(" N(Pack) = " + n + " F(Hz) = " + ff+ " Break Time =" + ms);
+                            txt1.setText("Date = " + dd + "/"+ mm + "/"+ yy + "\nTime = "+ ha + ":" + ma +":"+ sa);
+                            txt2.setText("Start Time = " + hi + ":" + mi );
+                            txt3.setText("Burst Length = " + n + "\nFrequency (Hz) = " + ff+ "\n  Time interval = " + ms);
                             //txt3.setText("D_Rx = " + dataInPrint);
                         }
                         if (recDataString.charAt(0) == '-')                             //if it starts with # we know it is what we are looking for

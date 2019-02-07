@@ -58,10 +58,10 @@
         <item>10 Hz</item>
     </string-array>
     <string-array name="Pack0">
-        <item>10</item>
-        <item>20</item>
         <item>30</item>
         <item>40</item>
+        <item>50</item>
+        <item>60</item>
     </string-array>
     <string-array name="Pack1">
         <item>254</item>
@@ -84,13 +84,8 @@
         <item>30</item>
     </string-array>
     <string-array name="Btime1">
-        <item>25</item>
         <item>30</item>
-        <item>35</item>
-        <item>40</item>
         <item>45</item>
-        <item>50</item>
-        <item>55</item>
         <item>60</item>
     </string-array>
     <string-array name="Btime2">
