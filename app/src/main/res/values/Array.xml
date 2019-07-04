@@ -45,6 +45,7 @@
         <item>2 Hz</item>
     </string-array>
     <string-array name="Speed1">
+        <item>1 Hz</item>
         <item>2 Hz</item>
         <item>3 Hz</item>
         <item>4 Hz</item>
